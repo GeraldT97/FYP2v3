@@ -25,8 +25,8 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
 
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "http://10.0.2.2/login.php";
-        String register_url = "http://10.0.2.2/register.php";
+        String login_url = "http://192.168.1.72/login.php";
+        String register_url = "http://192.168.1.72/register.php";
         if(type.equals("login")) {
             try {
                 String user_name = params[1];
@@ -74,8 +74,8 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("username","UTF-8")+"="+URLEncoder.encode(username,"UTF-8")+"&"
-                        +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"
                         +URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(email,"UTF-8")+"&"
+                        +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"
                         +URLEncoder.encode("contactno","UTF-8")+"="+URLEncoder.encode(contactno,"UTF-8")+"&";
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();

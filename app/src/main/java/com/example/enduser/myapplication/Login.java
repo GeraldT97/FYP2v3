@@ -18,7 +18,7 @@ public class Login extends AppCompatActivity {
         Username = findViewById(R.id.username);
         Password = findViewById(R.id.password);
 
-        Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
+       /* Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
                 startActivity(startIntent);
 
             }
-        });
+        });*/
 
 
 
