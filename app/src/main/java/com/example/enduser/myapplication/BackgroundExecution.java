@@ -2,6 +2,7 @@ package com.example.enduser.myapplication;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -109,9 +110,23 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+
+        if (result.toString().equals("Your data has been inserted successfully")) {
+            alertDialog.setMessage(result);
+            alertDialog.show();
+            Intent intent = new Intent(context, Login.class);
+            context.startActivity(intent);
+        } else if (result.toString().equals("Login success !!!!! Welcome user")) {
+            alertDialog.setMessage(result);
+            alertDialog.show();
+            Intent intent = new Intent(context, ManageFingerprint.class);
+            context.startActivity(intent);
+        } else {
+            alertDialog.setMessage(result);
+            alertDialog.show();
+        }
     }
+
 
     @Override
     protected void onProgressUpdate(Void... values) {
