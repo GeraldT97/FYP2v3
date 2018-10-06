@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.EditText;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,14 +21,15 @@ import java.net.URLEncoder;
 public class BackgroundExecution extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
+    private EditText Username,Password;
     BackgroundExecution(Context ctx) {
         context = ctx;
     }
 
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "http://192.168.1.72/login.php";
-        String register_url = "http://192.168.1.72/register.php";
+        String login_url = "http://192.168.1.70/login.php";
+        String register_url = "http://10.0.2.2/register.php";
         if(type.equals("login")) {
             try {
                 String user_name = params[1];
@@ -119,7 +121,8 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
         } else if (result.toString().equals("Login success !!!!! Welcome user")) {
             alertDialog.setMessage(result);
             alertDialog.show();
-            Intent intent = new Intent(context, ManageFingerprint.class);
+            Intent intent = new Intent(context, NavigationDrawer.class);
+            intent.putExtra("name", Username.getText().toString());
             context.startActivity(intent);
         } else {
             alertDialog.setMessage(result);
