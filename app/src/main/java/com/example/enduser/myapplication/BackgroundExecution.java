@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.EditText;
 
 import java.io.BufferedReader;
@@ -21,37 +25,39 @@ import java.net.URLEncoder;
 public class BackgroundExecution extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    private EditText Username,Password;
+    private EditText Username, Password;
+
+
     BackgroundExecution(Context ctx) {
         context = ctx;
     }
 
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "http://192.168.1.70/login.php";
-        String register_url = "http://10.0.2.2/register.php";
-        if(type.equals("login")) {
+        String login_url = "http://192.168.1.65/login.php";
+        String register_url = "http://192.168.1.65/register.php";
+        if (type.equals("login")) {
             try {
                 String user_name = params[1];
                 String password = params[2];
                 URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("user_name","UTF-8")+"="+URLEncoder.encode(user_name,"UTF-8")+"&"
-                        +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
+                String post_data = URLEncoder.encode("user_name", "UTF-8") + "=" + URLEncoder.encode(user_name, "UTF-8") + "&"
+                        + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while((line = bufferedReader.readLine())!= null) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
                 bufferedReader.close();
@@ -63,32 +69,32 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if(type.equals("register")){
+        } else if (type.equals("register")) {
             try {
                 String username = params[1];
                 String password = params[2];
                 String email = params[3];
                 String contactno = params[4];
                 URL url = new URL(register_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("username","UTF-8")+"="+URLEncoder.encode(username,"UTF-8")+"&"
-                        +URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(email,"UTF-8")+"&"
-                        +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"
-                        +URLEncoder.encode("contactno","UTF-8")+"="+URLEncoder.encode(contactno,"UTF-8")+"&";
+                String post_data = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
+                        + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") + "&"
+                        + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") + "&"
+                        + URLEncoder.encode("contactno", "UTF-8") + "=" + URLEncoder.encode(contactno, "UTF-8") + "&";
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while((line = bufferedReader.readLine())!= null) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
                 bufferedReader.close();
@@ -121,19 +127,18 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
         } else if (result.toString().equals("Login success !!!!! Welcome user")) {
             alertDialog.setMessage(result);
             alertDialog.show();
-            Intent intent = new Intent(context, NavigationDrawer.class);
-            intent.putExtra("name", Username.getText().toString());
-            context.startActivity(intent);
+
+            // intent.putExtra("name", Username.getText().toString());
+            //context.startActivity(intent);
         } else {
             alertDialog.setMessage(result);
             alertDialog.show();
         }
     }
-
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
 }
+
+
+
+
+
 
