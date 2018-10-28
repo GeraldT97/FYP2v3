@@ -1,5 +1,8 @@
 package com.example.enduser.myapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,11 +16,24 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    Context context;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle mToggle;
+    private static Context mCtx;
+    private static NavigationDrawer mInstance;
+    public static final String SHARED_PREF_NAME = "mysharedpref12";
 
 
+    private NavigationDrawer(Context context) {
+        mCtx = context;
+    }
+
+    public static synchronized NavigationDrawer getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new NavigationDrawer(context);
+        }
+        return mInstance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +52,13 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.add(R.id.fragment_container, fragment);
+
+        ft.commit();
+
 
 
     }
@@ -48,9 +71,13 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         if(id == R.id.Home){
             fragment = new HomeFragment();
-        }else if (id == R.id.Notification){
+        }else if (id == R.id.Notification) {
             fragment = new NotificationFragment();
-
+        } else if (id == R.id.Logout){
+            SharedPrefManager.getInstance(this).logout();
+            finish();
+            Intent startIntent = new Intent(context, Login.class);
+            context.startActivity(startIntent);
         }
 
         if(fragment !=null){

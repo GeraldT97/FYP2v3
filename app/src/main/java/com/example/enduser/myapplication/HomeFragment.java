@@ -51,11 +51,11 @@ public class HomeFragment extends Fragment {
 
 
         TextView car = (TextView)v.findViewById(R.id.car);
-        fingerprint.setOnClickListener(new View.OnClickListener()
+        car.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getActivity().getApplicationContext(), ManageFingerprint.class);
+                Intent startIntent = new Intent(getActivity().getApplicationContext(), CarStatus.class);
                 startActivity(startIntent);
             }
 
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getActivity().getApplicationContext(), ManageFingerprint.class);
+                Intent startIntent = new Intent(getActivity().getApplicationContext(), CarStatus.class);
                 startActivity(startIntent);
             }
         });

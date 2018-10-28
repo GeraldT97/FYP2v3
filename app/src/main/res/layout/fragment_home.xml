@@ -7,33 +7,38 @@
 
     <TextView
         android:id="@+id/car"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView7"
-        android:layout_below="@+id/Scanner"
+        android:layout_below="@+id/carstatus"
+        android:layout_alignStart="@+id/carstatus"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="218dp"
         android:clickable="true"
         android:text="Car Status"
         android:textColor="#fff" />
 
     <TextView
         android:id="@+id/fingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="134dp"
+        android:layout_height="29dp"
         android:layout_below="@+id/Scanner"
-        android:layout_marginStart="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="203dp"
+        android:layout_toStartOf="@+id/car"
+        android:layout_toLeftOf="@+id/car"
         android:clickable="true"
         android:text="Fingerprint Scanner"
         android:textColor="#fff" />
-
-    <ImageView
-        android:id="@+id/Scanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="82dp"
-        app:srcCompat="@drawable/finger" />
 
     <TextView
         android:id="@+id/textView5"
@@ -50,9 +55,25 @@
         android:id="@+id/carstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_alignBottom="@+id/Scanner"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="82dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="80dp"
+        android:layout_toEndOf="@+id/Scanner"
+        android:layout_toRightOf="@+id/Scanner"
         app:srcCompat="@drawable/car" />
+
+    <ImageView
+        android:id="@+id/Scanner"
+        android:layout_width="53dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="-48dp"
+        android:layout_toStartOf="@+id/textView5"
+        app:srcCompat="@drawable/finger" />
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,7 +26,7 @@ import java.net.URLEncoder;
 public class BackgroundExecution extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    private EditText Username, Password;
+    private EditText Username, Password, Confirmpass;
 
 
     BackgroundExecution(Context ctx) {
@@ -34,8 +35,8 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
 
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "http://192.168.1.65/login.php";
-        String register_url = "http://192.168.1.65/register.php";
+        String login_url = "http://192.168.1.67/login.php";
+        String register_url = "http://192.168.1.67/register.php";
         if (type.equals("login")) {
             try {
                 String user_name = params[1];
@@ -75,6 +76,7 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
                 String password = params[2];
                 String email = params[3];
                 String contactno = params[4];
+                String confirmpass = params[5];
                 URL url = new URL(register_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -85,6 +87,7 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
                 String post_data = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
                         + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") + "&"
                         + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") + "&"
+                        + URLEncoder.encode("confirmpass", "UTF-8") + "=" + URLEncoder.encode(confirmpass, "UTF-8") + "&"
                         + URLEncoder.encode("contactno", "UTF-8") + "=" + URLEncoder.encode(contactno, "UTF-8") + "&";
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -120,25 +123,36 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result) {
 
         if (result.toString().equals("Your data has been inserted successfully")) {
-            alertDialog.setMessage(result);
-            alertDialog.show();
             Intent intent = new Intent(context, Login.class);
             context.startActivity(intent);
-        } else if (result.toString().equals("Login success !!!!! Welcome user")) {
-            alertDialog.setMessage(result);
-            alertDialog.show();
-
-            // intent.putExtra("name", Username.getText().toString());
-            //context.startActivity(intent);
+             DisplayToastSuccess();
+        } else if (result.toString().equals("login success !!!!! Welcome user")) {
+            //alertDialog.setMessage(result);
+            //alertDialog.show();
+            DisplayToastwelcome();
+            Intent startIntent = new Intent(context, NavigationDrawer.class);
+            context.startActivity(startIntent);
         } else {
-            alertDialog.setMessage(result);
-            alertDialog.show();
+           // alertDialog.setMessage(result);
+            //alertDialog.show();
+             DisplayToastFail();
         }
     }
+
+    private void DisplayToastSuccess() {
+        Toast.makeText(context, R.string.success, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void DisplayToastFail() {
+        Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void DisplayToastwelcome() {
+        Toast.makeText(context, R.string.welcome, Toast.LENGTH_SHORT).show();
+
+    }
 }
-
-
-
-
 
 
