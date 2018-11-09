@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+//import com.example.simplebluetooth.BluetoothConnection;
+
 public class ManageFingerprint extends AppCompatActivity {
 
     @Override
@@ -39,14 +41,15 @@ public class ManageFingerprint extends AppCompatActivity {
             });
 
 
-                Button viewfinger = (Button) findViewById(R.id.viewfinger);
-                    viewfinger.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent startIntent = new Intent(getApplicationContext(), ViewFingerprint.class);
-                            startActivity(startIntent);
-                        }
-                    });
+        Button viewfinger = (Button) findViewById(R.id.viewfinger);
+        viewfinger.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+                Intent startIntent = new Intent(getApplicationContext(), BluetoothConnection.class);
+                startActivity(startIntent);
+            }
+        });
 
 
                         }

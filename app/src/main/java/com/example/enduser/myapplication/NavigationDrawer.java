@@ -21,19 +21,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     private ActionBarDrawerToggle mToggle;
     private static Context mCtx;
     private static NavigationDrawer mInstance;
-    public static final String SHARED_PREF_NAME = "mysharedpref12";
 
-
-    private NavigationDrawer(Context context) {
-        mCtx = context;
-    }
-
-    public static synchronized NavigationDrawer getInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new NavigationDrawer(context);
-        }
-        return mInstance;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +61,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
             fragment = new HomeFragment();
         }else if (id == R.id.Notification) {
             fragment = new NotificationFragment();
-        } else if (id == R.id.Logout){
-            SharedPrefManager.getInstance(this).logout();
-            finish();
-            Intent startIntent = new Intent(context, Login.class);
-            context.startActivity(startIntent);
         }
+
 
         if(fragment !=null){
             FragmentManager fragmentManager = getSupportFragmentManager();

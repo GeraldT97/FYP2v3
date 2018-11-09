@@ -20,23 +20,28 @@
             android:name=".Login"
             android:exported="true"
             android:label="@string/title_activity_login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".ScanMainPage" >
 
         </activity>
         <activity android:name=".HomePage3" />
-        <activity android:name=".ManageFingerprint" />
+        <activity android:name=".ManageFingerprint" >
+
+        </activity>
         <activity android:name=".DeleteFingerprint" />
         <activity android:name=".NavigationDrawer">
 
         </activity>
         <activity android:name=".CarStatus">
+        </activity>
+        <activity android:name=".ViewFingerprint" />
+        <activity android:name=".BluetoothConnection" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

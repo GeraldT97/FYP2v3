@@ -1,129 +1,92 @@
 package com.example.enduser.myapplication;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
+import java.util.Set;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.Set;
-import java.util.UUID;
+import com.example.enduser.myapplication.R;
 
+public class BluetoothConnection extends Activity {
 
-public class BluetoothConnection extends Activity implements View.OnClickListener {
+    // textview for connection status
+    TextView textConnectionStatus;
+    ListView pairedListView;
 
-    ImageView FScanner;
-    TextView t1;
+    // Member fields
+    private BluetoothAdapter mBtAdapter;
+    private ArrayAdapter<String> mPairedDevicesArrayAdapter;
 
-    String address = null , name=null;
-
-    BluetoothAdapter myBluetooth = null;
-    BluetoothSocket btSocket = null;
-    Set<BluetoothDevice> pairedDevices;
-    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-
-    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_main_page);
-        try {setw();} catch (Exception e) {}
-    }
+        setContentView(R.layout.bluetooth_led);
 
-    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
-    @SuppressLint("ClickableViewAccessibility")
-    private void setw() throws IOException
-    {
-        t1=(TextView)findViewById(R.id.textview7);
-        bluetooth_connect_device();
+        textConnectionStatus = (TextView) findViewById(R.id.connecting);
+        textConnectionStatus.setTextSize(40);
 
-        FScanner = (ImageView) findViewById(R.id.imageView15);
+        // Initialize array adapter for paired devices
+        mPairedDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
 
-        FScanner.setOnTouchListener(new View.OnTouchListener()
-        {   @Override
-        public boolean onTouch(View v, MotionEvent event){
-            if(event.getAction() == MotionEvent.ACTION_DOWN) {fingerprintScanner("N");}
-            if(event.getAction() == MotionEvent.ACTION_UP){fingerprintScanner("F");}
-            return true;}
-        });
+        // Find and set up the ListView for paired devices
+        pairedListView = (ListView) findViewById(R.id.paired_devices);
+        pairedListView.setAdapter(mPairedDevicesArrayAdapter);
 
-    }
-
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
-    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
-    private void bluetooth_connect_device() throws IOException
-    {
-        try
-        {
-            myBluetooth = BluetoothAdapter.getDefaultAdapter();
-            address = myBluetooth.getAddress();
-            pairedDevices = myBluetooth.getBondedDevices();
-            if (pairedDevices.size()>0)
-            {
-                for(BluetoothDevice bt : pairedDevices)
-                {
-                    address=bt.getAddress().toString();name = bt.getName().toString();
-                    Toast.makeText(getApplicationContext(),"Connected", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-        }
-        catch(Exception we){}
-        myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-        BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
-        btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
-        btSocket.connect();
-        try { t1.setText("BT Name: "+name+"\nBT Address: "+address); }
-        catch(Exception e){}
     }
 
     @Override
-    public void onClick(View v)
+    public void onResume()
     {
-        try
-        {
+        super.onResume();
+        //It is best to check BT status at onResume in case something has changed while app was paused etc
+        checkBTState();
 
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
+        mPairedDevicesArrayAdapter.clear();// clears the array so items aren't duplicated when resuming from onPause
 
-        }
+        textConnectionStatus.setText(" "); //makes the textview blank
 
-    }
+        // Get the local Bluetooth adapter
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 
-    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
-    private void fingerprintScanner(String i)
-    {
-        try
-        {
-            if (btSocket!=null)
-            {
+        // Get a set of currently paired devices and append to pairedDevices list
+        Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
 
-                btSocket.getOutputStream().write(i.toString().getBytes());
+        // Add previously paired devices to the array
+        if (pairedDevices.size() > 0) {
+            findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);//make title viewable
+            for (BluetoothDevice device : pairedDevices) {
+                mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
-
+        } else {
+            mPairedDevicesArrayAdapter.add("no devices paired");
         }
-        catch (Exception e)
-        {
-            Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
-
-        }
-
     }
 
+    //method to check if the device has Bluetooth and if it is on.
+    //Prompts the user to turn it on if it is off
+    private void checkBTState()
+    {
+        // Check device has Bluetooth and that it is turned on
+        mBtAdapter=BluetoothAdapter.getDefaultAdapter(); // CHECK THIS OUT THAT IT WORKS!!!
+        if(mBtAdapter==null) {
+            Toast.makeText(getBaseContext(), "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            if (!mBtAdapter.isEnabled()) {
+                //Prompt user to turn on Bluetooth
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, 1);
+            }
+        }
+    }
 }

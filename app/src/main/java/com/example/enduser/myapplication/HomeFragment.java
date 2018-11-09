@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
         });
 
         ImageView carstatus  = (ImageView) v.findViewById(R.id.carstatus);
-        Scanner.setOnClickListener(new View.OnClickListener()
+        carstatus.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
