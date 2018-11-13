@@ -3,10 +3,9 @@
     package="com.example.enduser.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     "
     <application
         android:allowBackup="true"
@@ -15,35 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
         <activity
             android:name=".Login"
             android:exported="true"
-            android:label="@string/title_activity_login">
-
-        </activity>
-        <activity android:name=".ScanMainPage" >
-
-        </activity>
+            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".ScanMainPage"></activity>
         <activity android:name=".HomePage3" />
-        <activity android:name=".ManageFingerprint" >
-
-        </activity>
+        <activity android:name=".ManageFingerprint"></activity>
         <activity android:name=".DeleteFingerprint" />
-        <activity android:name=".NavigationDrawer">
-
-        </activity>
-        <activity android:name=".CarStatus">
-        </activity>
+        <activity android:name=".NavigationDrawer"></activity>
+        <activity android:name=".CarStatus"></activity>
         <activity android:name=".ViewFingerprint" />
-        <activity android:name=".BluetoothConnection" >
+        <activity android:name=".BluetoothConnection">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BluetoothConnection2"></activity>
     </application>
 
 </manifest>
-
