@@ -88,7 +88,7 @@ public class BluetoothConnection2 extends Activity {
                                 Intent startIntent = new Intent(getApplicationContext(),Notification.class);
                                 startActivity(startIntent);
                             }
-                        }
+                        }//123
                         recDataString.delete(0, recDataString.length());                    //clear all string data
                         // strIncom =" ";
                         dataInPrint = " ";
