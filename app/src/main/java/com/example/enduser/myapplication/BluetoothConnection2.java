@@ -84,9 +84,10 @@ public class BluetoothConnection2 extends Activity {
                             pressure.setText("Tyre pressure :"  +sensor2 );
                             //sensorView3.setText(" Sensor 3 Voltage = " + sensor3 + "V");
 
-                           /* while(sensor1 == "<25%"){
-                                addNotification();
-                            }*/
+                            while(sensor1.equals("<25%")){
+                                Intent startIntent = new Intent(getApplicationContext(),Notification.class);
+                                startActivity(startIntent);
+                            }
                         }
                         recDataString.delete(0, recDataString.length());                    //clear all string data
                         // strIncom =" ";

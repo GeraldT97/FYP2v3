@@ -27,20 +27,23 @@
         <activity android:name=".CarStatus" />
         <activity android:name=".ViewFingerprint" />
         <activity android:name=".BluetoothConnection">
-
-        </activity>
-        <activity android:name=".BluetoothConnection2" />
-        <activity android:name=".BluetoothConnectionPre3" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+        </activity>
+        <activity android:name=".BluetoothConnection2" />
+        <activity android:name=".BluetoothConnectionPre3">
 
         </activity>
         <activity android:name=".BluetoothConnection3" />
-        <activity android:name=".Notification"></activity>
+        <activity android:name=".Notification" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
