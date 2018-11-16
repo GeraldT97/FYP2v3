@@ -46,7 +46,7 @@ public class ManageFingerprint extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-                Intent startIntent = new Intent(getApplicationContext(), BluetoothConnection.class);
+                Intent startIntent = new Intent(getApplicationContext(), BluetoothConnectionPre3.class);
                 startActivity(startIntent);
             }
         });

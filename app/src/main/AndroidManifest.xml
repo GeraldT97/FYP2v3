@@ -18,22 +18,29 @@
         <activity
             android:name=".Login"
             android:exported="true"
-            android:label="@string/title_activity_login"></activity>
-        <activity android:name=".ScanMainPage"></activity>
+            android:label="@string/title_activity_login" />
+        <activity android:name=".ScanMainPage" />
         <activity android:name=".HomePage3" />
-        <activity android:name=".ManageFingerprint"></activity>
+        <activity android:name=".ManageFingerprint" />
         <activity android:name=".DeleteFingerprint" />
-        <activity android:name=".NavigationDrawer"></activity>
-        <activity android:name=".CarStatus"></activity>
+        <activity android:name=".NavigationDrawer" />
+        <activity android:name=".CarStatus" />
         <activity android:name=".ViewFingerprint" />
         <activity android:name=".BluetoothConnection">
+
+        </activity>
+        <activity android:name=".BluetoothConnection2" />
+        <activity android:name=".BluetoothConnectionPre3" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
-        <activity android:name=".BluetoothConnection2"></activity>
+        <activity android:name=".BluetoothConnection3" />
+        <activity android:name=".Notification"></activity>
     </application>
 
 </manifest>

@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getActivity().getApplicationContext(), CarStatus.class);
+                Intent startIntent = new Intent(getActivity().getApplicationContext(), BluetoothConnection.class);
                 startActivity(startIntent);
             }
 
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getActivity().getApplicationContext(), CarStatus.class);
+                Intent startIntent = new Intent(getActivity().getApplicationContext(), BluetoothConnection.class);
                 startActivity(startIntent);
             }
         });

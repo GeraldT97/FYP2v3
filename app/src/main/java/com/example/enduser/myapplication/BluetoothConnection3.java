@@ -24,9 +24,9 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 
-public class BluetoothConnection2 extends Activity {
-    // Button btnOn, btnOff;
-    TextView txtArduino, txtString, txtStringLength, temperature, oilevel, pressure;
+public class BluetoothConnection3 extends Activity {
+   // Button btnOn, btnOff;
+    TextView txtArduino, txtString, txtStringLength, Finger1, Finger2, Finger3;
     Handler bluetoothIn,bluetoothIn2;
 
     final int handlerState = 0;                        //used to identify handler message
@@ -48,16 +48,16 @@ public class BluetoothConnection2 extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_bluetooth_connection2);
+        setContentView(R.layout.activity_view_fingerprint);
 
         //Link the buttons and textViews to respective views
-        // btnOn = (Button) findViewById(R.id.buttonOn);
-        // btnOff = (Button) findViewById(R.id.buttonOff);
+       // btnOn = (Button) findViewById(R.id.buttonOn);
+       // btnOff = (Button) findViewById(R.id.buttonOff);
         txtString = (TextView) findViewById(R.id.txtString);
         txtStringLength = (TextView) findViewById(R.id.testView1);
-        temperature = (TextView) findViewById(R.id.sensorView0);
-        oilevel = (TextView) findViewById(R.id.sensorView1);
-        pressure = (TextView) findViewById(R.id.sensorView2);
+        Finger1 = (TextView) findViewById(R.id.finger1);
+        Finger2 = (TextView) findViewById(R.id.finger2);
+        Finger3 = (TextView) findViewById(R.id.finger3);
 
 
         bluetoothIn2 = new Handler() {
@@ -68,20 +68,20 @@ public class BluetoothConnection2 extends Activity {
                     int endOfLineIndex = recDataString.indexOf("~");                    // determine the end-of-line
                     if (endOfLineIndex > 0) {                                           // make sure there data before ~
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);    // extract string
-                        // txtString.setText("Data Received = " + dataInPrint);
-                        //int dataLength = dataInPrint.length();                          //get length of data received
-                        // txtStringLength.setText("String Length = " + String.valueOf(dataLength));
+                       // txtString.setText("Data Received = " + dataInPrint);
+                       //int dataLength = dataInPrint.length();                          //get length of data received
+                       // txtStringLength.setText("String Length = " + String.valueOf(dataLength));
 
                         if (recDataString.charAt(0) == '#')                             //if it starts with # we know it is what we are looking for
                         {
-                            String sensor0 = recDataString.substring(1,5 );             //get sensor value from string between indices 1-5
-                            String sensor1 = recDataString.substring(7,11);            //same again...
-                            String sensor2 = recDataString.substring(12, 18);
-                            // String sensor3 = recDataString.substring(16, 20);
+                            String F1 = recDataString.substring(1,5 );             //get sensor value from string between indices 1-5
+                            String F2 = recDataString.substring(7,11);            //same again...
+                            String F3 = recDataString.substring(12, 18);
+                           // String sensor3 = recDataString.substring(16, 20);
 
-                            temperature.setText( "Temperature : " + sensor0 + "*C" );    //update the textviews with sensor values
-                            oilevel.setText( "Oil Level : " +sensor1  );
-                            pressure.setText("Tyre pressure :"  +sensor2 );
+                            Finger1.setText( F1 );    //update the textviews with sensor values
+                            Finger2.setText( F2  );
+                            Finger3.setText(F3 );
                             //sensorView3.setText(" Sensor 3 Voltage = " + sensor3 + "V");
 
                            /* while(sensor1 == "<25%"){
@@ -225,7 +225,7 @@ public class BluetoothConnection2 extends Activity {
                     bytes = mmInStream.read(buffer);            //read bytes from input buffer
                     String readMessage = new String(buffer, 0, bytes);
                     // Send the obtained bytes to the UI Activity via handler
-                    // bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
+                   // bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
                     bluetoothIn2.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
                 } catch (IOException e) {
                     break;

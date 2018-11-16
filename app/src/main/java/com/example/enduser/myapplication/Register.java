@@ -56,13 +56,13 @@ public class Register extends AppCompatActivity {
 
 
         String username = Username.getText().toString();
-        String email = Email.getText().toString();
         String password = Password.getText().toString();
+           String email = Email.getText().toString();
         String confrimpass = ConfirmPass.getText().toString();
         String contactNO = ContactNO.getText().toString();
         String type = "register";
         BackgroundExecution backgroundWorker = new BackgroundExecution(this);
-        backgroundWorker.execute(type, username, email, password, contactNO, confrimpass);
+        backgroundWorker.execute(type, username, password, email, contactNO, confrimpass);
        }
        else{
            Toast.makeText(Register.this, "Error", Toast.LENGTH_SHORT).show();

@@ -28,7 +28,7 @@
         app:layout_constraintVertical_bias="0.213" />
 
     <TextView
-        android:id="@+id/finger1"
+        android:id="@+id/finger3"
         android:layout_width="130dp"
         android:layout_height="38dp"
         android:layout_marginBottom="8dp"
@@ -43,11 +43,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/finger"
+        app:layout_constraintTop_toBottomOf="@+id/finger2"
         app:layout_constraintVertical_bias="0.067" />
 
     <TextView
-        android:id="@+id/finger2"
+        android:id="@+id/finger3"
         android:layout_width="132dp"
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/deleteTitle" />
 
     <TextView
-        android:id="@+id/finger"
+        android:id="@+id/finger2"
         android:layout_width="132dp"
         android:layout_height="38dp"
         android:layout_marginStart="8dp"
@@ -77,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toEndOf="@+id/imageView14"
-        app:layout_constraintTop_toBottomOf="@+id/finger2" />
+        app:layout_constraintTop_toBottomOf="@+id/finger3" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -90,7 +90,7 @@
         android:layout_marginTop="224dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/finger2"
+        app:layout_constraintStart_toEndOf="@+id/finger3"
         app:layout_constraintTop_toBottomOf="@+id/deleteTitle"
         app:srcCompat="@drawable/close" />
 
@@ -105,7 +105,7 @@
         android:layout_marginTop="168dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/finger2"
+        app:layout_constraintStart_toEndOf="@+id/finger3"
         app:layout_constraintTop_toBottomOf="@+id/deleteTitle"
         app:srcCompat="@drawable/close" />
 
@@ -120,7 +120,7 @@
         android:layout_marginTop="112dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/finger2"
+        app:layout_constraintStart_toEndOf="@+id/finger3"
         app:layout_constraintTop_toBottomOf="@+id/deleteTitle"
         app:srcCompat="@drawable/close" />
 
