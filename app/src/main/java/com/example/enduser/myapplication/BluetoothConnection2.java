@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,8 +27,9 @@ import java.util.UUID;
 
 public class BluetoothConnection2 extends Activity {
     // Button btnOn, btnOff;
-    TextView txtArduino, txtString, txtStringLength, temperature, oilevel, pressure;
+    TextView txtArduino, txtString, txtStringLength, temperature, oilevel, pressure, btnOn, btnOff;
     Handler bluetoothIn,bluetoothIn2;
+    Context context;
 
     final int handlerState = 0;                        //used to identify handler message
     private BluetoothAdapter btAdapter = null;
@@ -51,8 +53,8 @@ public class BluetoothConnection2 extends Activity {
         setContentView(R.layout.activity_bluetooth_connection2);
 
         //Link the buttons and textViews to respective views
-        // btnOn = (Button) findViewById(R.id.buttonOn);
-        // btnOff = (Button) findViewById(R.id.buttonOff);
+         btnOn = (Button) findViewById(R.id.buttonOn);
+         btnOff = (Button) findViewById(R.id.buttonOff);
         txtString = (TextView) findViewById(R.id.txtString);
         txtStringLength = (TextView) findViewById(R.id.testView1);
         temperature = (TextView) findViewById(R.id.sensorView0);
@@ -61,38 +63,43 @@ public class BluetoothConnection2 extends Activity {
 
 
         bluetoothIn2 = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                if (msg.what == handlerState) {                                     //if message is what we want
+            public void handleMessage(Message msg) {
+                if (msg.what == handlerState) {                                                 //if message is what we want
                     String readMessage = (String) msg.obj;                                                                // msg.arg1 = bytes from connect thread
-                    recDataString.append(readMessage);                                      //keep appending to string until ~
-                    int endOfLineIndex = recDataString.indexOf("~");                    // determine the end-of-line
-                    if (endOfLineIndex > 0) {                                           // make sure there data before ~
-                        String dataInPrint = recDataString.substring(0, endOfLineIndex);    // extract string
+                    recDataString.append(readMessage);                                              //keep appending to string until ~
+                    int endOfLineIndex = recDataString.indexOf("~");                            // determine the end-of-line
+                    if (endOfLineIndex > 0) {                                                   // make sure there data before ~
+                        String dataInPrint = recDataString.substring(0, endOfLineIndex);         // extract string
                         // txtString.setText("Data Received = " + dataInPrint);
-                        //int dataLength = dataInPrint.length();                          //get length of data received
+                        //int dataLength = dataInPrint.length();                                //get length of data received
                         // txtStringLength.setText("String Length = " + String.valueOf(dataLength));
 
-                        if (recDataString.charAt(0) == '#')                             //if it starts with # we know it is what we are looking for
+                        if (recDataString.charAt(0) == '#')                                  //if it starts with # we know it is what we are looking for
                         {
-                            String sensor0 = recDataString.substring(1,5 );             //get sensor value from string between indices 1-5
-                            String sensor1 = recDataString.substring(7,11);            //same again...
+                            String sensor0 = recDataString.substring(1,5 );                  //get sensor value from string between indices 1-5
+                            String sensor1 = recDataString.substring(7,11);                 //same again...
                             String sensor2 = recDataString.substring(12, 18);
                             // String sensor3 = recDataString.substring(16, 20);
 
-                            temperature.setText( "Temperature : " + sensor0 + "*C" );    //update the textviews with sensor values
+                            temperature.setText( "Temperature : " + sensor0 + "*C" );           //update the textviews with sensor values
                             oilevel.setText( "Oil Level : " +sensor1  );
                             pressure.setText("Tyre pressure :"  +sensor2 );
-                            //sensorView3.setText(" Sensor 3 Voltage = " + sensor3 + "V");
 
-                            while(sensor1.equals("<25%")){
-                                Intent startIntent = new Intent(getApplicationContext(),Notification.class);
-                                startActivity(startIntent);
-                            }
-                        }//123
+                            Intent intent = new Intent(context,MyService.class);
+                            intent.putExtra("sensor1",sensor1);
+                            context.startActivity(intent);
+
+
+
+
+
+                        }
                         recDataString.delete(0, recDataString.length());                    //clear all string data
                         // strIncom =" ";
                         dataInPrint = " ";
                     }
+
+
                 }
             }
         };
@@ -103,7 +110,7 @@ public class BluetoothConnection2 extends Activity {
         checkBTState();
 
         // Set up onClick listeners for buttons to send 1 or 0 to turn on/off LED
-      /*  btnOff.setOnClickListener(new OnClickListener() {
+       btnOff.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 mConnectedThread.write("t");    // Send "0" via Bluetooth
                 Toast.makeText(getBaseContext(), "Displaying temperature", Toast.LENGTH_SHORT).show();
@@ -115,7 +122,7 @@ public class BluetoothConnection2 extends Activity {
                 mConnectedThread.write("h");    // Send "1" via Bluetooth
                 Toast.makeText(getBaseContext(), "Displaying humidity", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 
 
@@ -130,14 +137,9 @@ public class BluetoothConnection2 extends Activity {
     public void onResume() {
         super.onResume();
 
-        //Get MAC address from DeviceListActivity via intent
-        Intent intent = getIntent();
-
-        //Get the MAC address from the DeviceListActivty via EXTRA
-        address = intent.getStringExtra(BluetoothConnection.EXTRA_DEVICE_ADDRESS);
-
-        //create device and set the MAC address
-        BluetoothDevice device = btAdapter.getRemoteDevice(address);
+        Intent intent = getIntent();                                                                      //Get MAC address from DeviceListActivity via intent
+        address = intent.getStringExtra(BluetoothConnection.EXTRA_DEVICE_ADDRESS);                        //Get the MAC address from the DeviceListActivty via EXTRA
+        BluetoothDevice device = btAdapter.getRemoteDevice(address);                                        //create device and set the MAC address
 
         try {
             btSocket = createBluetoothSocket(device);

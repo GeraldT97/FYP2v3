@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,20 +28,21 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
     private EditText Username, Password, Confirmpass;
-
+    static String user_name;
+    String password;
 
     BackgroundExecution(Context ctx) {
         context = ctx;
     }
-
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "http://10.2.255.132/login.php";
-        String register_url = "http://10.2.255.132/register.php";
+        user_name=params[1];
+        String login_url = "http://192.168.1.72/login.php";
+        String register_url = "http://192.168.1.72/register.php";
         if (type.equals("login")) {
             try {
-                String user_name = params[1];
-                String password = params[2];
+               String user_name = params[1];
+                password = params[2];
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -131,6 +133,7 @@ public class BackgroundExecution extends AsyncTask<String,Void,String> {
             //alertDialog.show();
             DisplayToastwelcome();
             Intent startIntent = new Intent(context, NavigationDrawer.class);
+            startIntent.putExtra("username", user_name);
             context.startActivity(startIntent);
         } else {
            // alertDialog.setMessage(result);

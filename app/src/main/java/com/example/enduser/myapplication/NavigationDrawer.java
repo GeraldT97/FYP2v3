@@ -14,6 +14,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import static android.widget.Toast.*;
 
 public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Context context;
@@ -21,13 +24,15 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     private ActionBarDrawerToggle mToggle;
     private static Context mCtx;
     private static NavigationDrawer mInstance;
-
+String user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
+       //user_name = getIntent().getStringExtra("username");
+        //makeText(context, user_name, LENGTH_LONG).show();
 
 
         drawer = findViewById(R.id.drawer_layout);
@@ -59,6 +64,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         if(id == R.id.Home){
             fragment = new HomeFragment();
+          // user_name = getActivity().getIntent().getExtras().getString("username");
         }else if (id == R.id.Notification) {
             fragment = new NotificationFragment();
         }

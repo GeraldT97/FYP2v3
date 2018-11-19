@@ -15,8 +15,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
@@ -26,31 +24,8 @@
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
-        app:layout_constraintStart_toEndOf="@+id/fingerprint"
         app:layout_constraintTop_toBottomOf="@+id/carstatus"
         app:layout_constraintVertical_bias="0.025" />
-
-    <TextView
-        android:id="@+id/fingerprint"
-        android:layout_width="134dp"
-        android:layout_height="29dp"
-        android:layout_below="@+id/Scanner"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="8dp"
-        android:layout_toStartOf="@+id/car"
-        android:layout_toLeftOf="@+id/car"
-        android:clickable="true"
-        android:text="Fingerprint Scanner"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Scanner"
-        app:layout_constraintVertical_bias="0.017" />
 
     <TextView
         android:id="@+id/textView5"
@@ -91,19 +66,21 @@
         app:srcCompat="@drawable/car" />
 
     <ImageView
-        android:id="@+id/Scanner"
-        android:layout_width="53dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_toStartOf="@+id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/carstatus"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.236"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/finger" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.441"
+        app:srcCompat="@drawable/gas" />
 
 </android.support.constraint.ConstraintLayout>

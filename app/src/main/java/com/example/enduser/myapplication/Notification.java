@@ -28,8 +28,14 @@ public class Notification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-displayNotification();
+
+            displayNotification();
+
+
     }
+
+
+
     public void displayNotification(){
         createNotificationChannel();
         Toast.makeText(Notification.this, "Walao eh", Toast.LENGTH_SHORT).show();
